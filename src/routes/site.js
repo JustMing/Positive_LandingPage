@@ -3,6 +3,7 @@ const router = express.Router();
 
 const siteController = require('../app/controllers/SiteController');
 
+router.get('/ve-positive', siteController.aboutUs);
 router.get('/', siteController.index);
 
 module.exports = router;

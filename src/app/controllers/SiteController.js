@@ -6,6 +6,10 @@ class SiteController{
         res.render('home');
     }
 
+    aboutUs(req, res) {
+        res.render('about');
+    }
+
 }
 
 module.exports = new SiteController;
