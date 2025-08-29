@@ -1,17 +1,21 @@
 const path = require('path');
 const express = require('express');
-const handlebars = require('express-handlebars');
+const hbs = require('express-handlebars');
 const morgan = require('morgan');
 const app = express();
 const port = 3000;
 
 const route = require('./routes');
+const db = require('./config/db');
+
+//connect db
+db.connect();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(morgan('common'));
 
-app.engine('hbs', handlebars.engine({
+app.engine('hbs', hbs.engine({
     extname: '.hbs'
 }));
 app.set('view engine', 'hbs');

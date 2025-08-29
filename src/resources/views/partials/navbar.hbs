@@ -19,3 +19,39 @@
         </nav>
     </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const links = document.querySelectorAll('.navbar-nav .nav-link');
+
+  function setActive() {
+    const path = window.location.pathname.replace(/\/+$/, ''); // bỏ dấu / cuối
+    const hash = window.location.hash;
+
+    links.forEach(l => l.classList.remove('active'));
+
+    // Ưu tiên match theo hash (/#dang-ky)
+    if (hash) {
+      const byHash = Array.from(links).find(l => l.hash === hash);
+      if (byHash) { byHash.classList.add('active'); return; }
+    }
+
+    // Match theo path (/ , /tuyen-dung , /ve-positive)
+    const byPath = Array.from(links).find(l => {
+      const lp = new URL(l.href, window.location.origin)
+                    .pathname.replace(/\/+$/, '');
+      return lp === path;
+    });
+
+    if (byPath) byPath.classList.add('active');
+    else {
+      // fallback: set Home khi ở trang gốc
+      const home = Array.from(links).find(l => l.pathname === '/');
+      if (home) home.classList.add('active');
+    }
+  }
+
+  setActive();
+  window.addEventListener('hashchange', setActive); // đổi active khi nhảy anchor
+});
+</script>
+
