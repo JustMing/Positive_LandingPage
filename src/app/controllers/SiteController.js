@@ -1,3 +1,4 @@
+const User = require('../models/User');
 
 class SiteController{
 
@@ -6,10 +7,18 @@ class SiteController{
         res.render('home');
     }
 
+    //[GET] /ve-positive
     aboutUs(req, res) {
-        res.render('about');
+        res.render('about', {layout: 'subMain.hbs'});
     }
 
+    //[POST] /dang-ky
+    register(req, res) {
+        const user = new User(req.body);
+        user.save();
+
+        res.send('Saved');
+    }
 }
 
 module.exports = new SiteController;

@@ -1,3 +1,59 @@
-<p>
-    {{job.title}}
-</p>
+<center>
+    <h1><b>Chi tiết công việc</b></h1>
+</center>
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card col-lg-9 wow fadeIn shadow p-3 mb-5 bg-body-tertiary rounded">
+                <div class="card-top">
+                    <h3><b>{{job.title}}</b></h3>
+                    <div>
+                        <p>Hạn đăng ký: {{job.applyDate}}</p>
+                    </div>
+                    <div
+                        class="align-items d-flex justify-content-between flex-column flex-md-row align-items-start align-items-md-center bg-light p-3">
+                        <div>
+                            <i class="bi bi-geo-alt-fill"></i>Địa điểm:
+                            {{job.place}}
+                        </div>
+                        <div>
+                            <i class="bi bi-cash-stack"></i>Thu nhập:
+                            {{job.salary}}
+                        </div>
+                        <div>
+                            <i class="bi bi-people-fill"></i>Hình thức làm việc:
+                            {{job.jobType}}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <p class="card-text">
+                    <div class="mb-3">
+                        <p><b>Mô tả công việc:</b></p>
+                        <p style="white-space: pre-line;">{{job.description}}</p>
+                    </div>
+                    <div class="mb-3">
+                        <p><b>Yêu cầu:</b></p>
+                        <p style="white-space: pre-line;">{{job.request}}</p>
+                    </div>
+                    <div class="mb-3">
+                        <p><b>Quyền lợi:</b></p>
+                        <p style="white-space: pre-line;">{{job.benefits}}</p>
+                    </div>
+                    </p>
+                    <hr>
+                    <div>
+                        <p>Thông tin liên hệ:</p>
+                        <div>
+                            Hotline: dsfsdfdfss
+                        </div>
+                        <div>
+                            Mail: sêffsfsdf
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

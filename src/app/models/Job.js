@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const slug = require('mongoose-slug-updater');
+
+mongoose.plugin(slug);
 
 const Job = new Schema({
     title: String,
@@ -9,7 +12,8 @@ const Job = new Schema({
     description: String,
     request: String,
     benefits: String,
-    applyDate: Date
+    applyDate: Date,
+    slug: {type: String, slug: 'title', unique: true}
 });
 
 module.exports = mongoose.model('Job', Job);
