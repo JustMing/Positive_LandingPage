@@ -5,22 +5,23 @@
 </style>
 
 <center class="mb-5">
-    <h1><b>Tuyển dụng</b></h1>
-    <p>
-        Tham khảo các vị trí đang được tuyển dụng tại POSitive
-    </p>
+    <h1><b>Danh sách tuyển dụng</b></h1>
+
 </center>
 
 <div class="row justify-content-center mb-5 ">
     <div class="col-md-6 shadow-p bg-body-tertiary rounded-5 bg-light">
-        <form method="get" action="/tuyen-dung" class="container my-3">
+        <form method="get" action="tuyen-dung" class="container my-3">
             <div class="row g-2">
-                <div class="col-12 col-md-9">
+                <div class="col-12 col-md-6">
                     <input type="text" name="search" value="{{search}}" placeholder="Tìm theo tên..."
                         class="form-control rounded-pill" />
                 </div>
                 <div class="col-12 col-md-3">
                     <button class="btn btn-primary rounded-pill w-100" type="submit">Tìm kiếm</button>
+                </div>
+                <div class="col-12 col-md-3">
+                    <button class="btn btn-primary rounded-pill w-100" type="submit">Tạo mới</button>
                 </div>
             </div>
         </form>
@@ -28,7 +29,7 @@
 </div>
 
 <div class="row justify-content-center mb-5">
-    <div class="col-md-10">
+    <div class="col-md-11">
         <ul class="list-group list-group-flush">
             {{#each jobs}}
             <li class="list-group-item">
@@ -47,6 +48,9 @@
                     </div>
                     <div>
                         <a href="/tuyen-dung/{{this.slug}}" class="btn btn-outline-success">Xem chi tiết</a>
+                    </div>
+                    <div>
+                        <a href="" class="btn btn-outline-danger">Xóa</a>
                     </div>
                 </div>
             </li>

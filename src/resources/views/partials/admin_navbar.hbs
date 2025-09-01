@@ -1,0 +1,53 @@
+<div class="container-fluid sticky-top">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom border-2 border-white">
+      <h1>Admin</h1>
+      <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto">
+          <a href="/admin/tuyen-dung" class="nav-item nav-link active">Tuyển Dụng</a>
+          <a href="/admin/nguoi-dung" class="nav-item nav-link">Người Đăng Ký</a>
+          <a href="/admin/logout" class="nav-item nav-link">Đăng Xuất</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const links = document.querySelectorAll('.navbar-nav .nav-link');
+
+    function setActive() {
+      const path = window.location.pathname.replace(/\/+$/, ''); // bỏ dấu / cuối
+      const hash = window.location.hash;
+
+      links.forEach(l => l.classList.remove('active'));
+
+      // Ưu tiên match theo hash (/#dang-ky)
+      if (hash) {
+        const byHash = Array.from(links).find(l => l.hash === hash);
+        if (byHash) { byHash.classList.add('active'); return; }
+      }
+
+      // Match theo path (/ , /tuyen-dung , /ve-positive)
+      const byPath = Array.from(links).find(l => {
+        const lp = new URL(l.href, window.location.origin)
+          .pathname.replace(/\/+$/, '');
+        return lp === path;
+      });
+
+      if (byPath) byPath.classList.add('active');
+      else {
+        // fallback: set Home khi ở trang gốc
+        const home = Array.from(links).find(l => l.pathname === '/');
+        if (home) home.classList.add('active');
+      }
+    }
+
+    setActive();
+    window.addEventListener('hashchange', setActive); // đổi active khi nhảy anchor
+  });
+</script>

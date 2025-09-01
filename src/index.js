@@ -2,11 +2,17 @@ const path = require('path');
 const express = require('express');
 const hbs = require('express-handlebars');
 const morgan = require('morgan');
+const jwt = require('jsonwebtoken');
 const app = express();
-const port = 3000;
+require('dotenv').config();
+
+const port = process.env.PORT;
+const secretKey = process.env.JWT_SECRET_KEY;
+
 
 const route = require('./routes');
 const db = require('./config/db');
+const { log } = require('console');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,7 +25,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(morgan('common'));
 
 app.engine('hbs', hbs.engine({
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: {
+        eq: (a, b) => a === b,
+    }
 }));
 app.set('view engine', 'hbs');
 

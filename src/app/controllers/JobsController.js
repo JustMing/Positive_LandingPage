@@ -3,14 +3,21 @@ const Job = require('../models/Job');
 class JobsController {
 
     //[GET] /tuyen-dung
-    index(req, res) {
-        Job.find({}).lean()
+    index(req, res, next) {
+        const search = req.query.search || '';
+
+        let filter = {};
+        if(search) {
+            filter.title = {$regex: search, $options: "i"};
+        }
+
+        Job.find(filter).lean()
             .then(jobs => res.render('jobs/jobs', {jobs, layout: 'subMain.hbs'}))
             .catch(err => next(err));
     }
 
     //[GET] /tuyen-dung/:slug
-    detail(req, res) {
+    detail(req, res, next) {
         Job.findOne({slug: req.params.slug}).lean()
             .then(job => res.render('jobs/details', {job, layout: 'subMain.hbs'}))
             .catch(err => next(err));
