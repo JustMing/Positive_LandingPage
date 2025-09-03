@@ -1,0 +1,22 @@
+:root {
+    --font-primary: 'Josefin Sans', sans-serif;
+    --font-secondary: 'Lato', sans-serif;
+}
+
+p, body {
+    font-family: var(--font-secondary);
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6, 
+.navbar-brand,
+.nav-link,
+.btn {
+    font-family: var(--font-primary);
+    font-weight: 700;
+}
+
+.text-bold {
+    font-family: var(--font-primary);
+    font-weight: 600;
+}

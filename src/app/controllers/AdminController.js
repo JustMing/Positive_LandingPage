@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Job = require('../models/Job');
 const jwt = require('jsonwebtoken');
+const mailService =     require('../../services/mailService');
 require('dotenv').config();
 
 class AdminController {
@@ -40,12 +41,19 @@ class AdminController {
 
         let filter = {};
         if (search) {
-            filter.title = { $regex: search, $options: "i" };
+            filter.name = { $regex: search, $options: "i" };
         }
 
         User.find(filter).lean()
             .then(users => res.render('admin/users', { users, layout: 'admin_layout.hbs' }))
             .catch(err => next(err));
+    }
+
+    //[POST] /admin/nguoi-dung/delete/:id
+    deleteUser(req, res, next) {
+        User.deleteOne({_id: req.params.id})
+            .then(() => res.redirect('/admin/nguoi-dung'))
+            .catch(error => next(error));
     }
 
     //[GET] /admin/tuyen-dung

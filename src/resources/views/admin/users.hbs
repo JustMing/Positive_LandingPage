@@ -44,10 +44,10 @@
                         {{this.email}}
                     </div>
                     <div>
-                        {{!-- <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                            data-bs-target="#updateModal">
-                            Chỉnh sửa
-                        </button> --}}
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                            data-bs-target="#approveModal" data-id="{{this._id}}">
+                            Cấp tài khoản
+                        </button>
                         <button id="btn-delete-user" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                             data-bs-target="#deleteModal" data-id="{{this._id}}">
                             Xóa
@@ -59,3 +59,46 @@
         </ul>
     </div>
 </div>
+
+<!--Delete  Modal -->
+<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Xóa người dùng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button id="btnDeleteUser" type="button" class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Delete form -->
+<form id="deleteUserForm" method="POST" action=""></form>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var userId;
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            userId = button.data('id');
+            console.log(userId);
+        });
+
+        btnDeleteUser.onclick = function () {
+            deleteUserForm.action = '/admin/nguoi-dung/delete/' + userId;
+            deleteUserForm.submit();
+        };
+    });
+
+</script>
