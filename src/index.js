@@ -4,6 +4,7 @@ const hbs = require('express-handlebars');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const app = express();
+const moment = require('moment');
 require('dotenv').config();
 
 const port = process.env.PORT;
@@ -28,6 +29,12 @@ app.engine('hbs', hbs.engine({
     extname: '.hbs',
     helpers: {
         eq: (a, b) => a === b,
+        formatDate: (date) => {
+            return moment(date).format('DD-MM-YYYY');
+        },
+        uFormatDate: (date, format) => {
+            return moment(date).format(format);
+        },
     }
 }));
 app.set('view engine', 'hbs');

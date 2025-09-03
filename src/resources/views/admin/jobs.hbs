@@ -21,7 +21,10 @@
                     <button class="btn btn-primary rounded-pill w-100" type="submit">Tìm kiếm</button>
                 </div>
                 <div class="col-12 col-md-3">
-                    <button class="btn btn-primary rounded-pill w-100" type="submit">Tạo mới</button>
+                    <button type="button" class="btn btn-primary rounded-pill w-100" data-bs-toggle="modal"
+                        data-bs-target="#createModal">
+                        Tạo mới
+                    </button>
                 </div>
             </div>
         </form>
@@ -47,10 +50,18 @@
                         {{this.salary}}
                     </div>
                     <div>
-                        <a href="/tuyen-dung/{{this.slug}}" class="btn btn-outline-success">Xem chi tiết</a>
-                    </div>
-                    <div>
-                        <a href="" class="btn btn-outline-danger">Xóa</a>
+                        <a href="/admin/tuyen-dung/{{this.slug}}" class="btn btn-outline-success">Xem chi tiết</a>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                            data-bs-target="#updateModal" data-id="{{this._id}}" data-title="{{this.title}}"
+                            data-place="{{this.place}}" data-salary="{{this.salary}}" data-jobtype="{{this.jobType}}"
+                            data-description="{{this.description}}" data-request="{{this.request}}"
+                            data-benefits="{{this.benefits}}" data-applydate="{{uFormatDate this.applyDate 'YYYY-MM-DD'}}">
+                            Chỉnh sửa
+                        </button>
+                        <button id="btn-delete-job" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal" data-id="{{this._id}}">
+                            Xóa
+                        </button>
                     </div>
                 </div>
             </li>
@@ -58,3 +69,234 @@
         </ul>
     </div>
 </div>
+
+<!--Create  Modal -->
+<div class="modal fade" id="createModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Khởi tạo thông tin tuyển dụng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createJobForm" method="POST">
+
+                    <!-- Tên công việc -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Tên công việc:</label>
+                        <input type="text" id="title" name="title" class="form-control" placeholder="Nhập tên công việc"
+                            required>
+                    </div>
+
+                    <!-- Hạn nộp đơn -->
+                    <div class="mb-3">
+                        <label for="applyDate" class="form-label">Hạn nộp đơn:</label>
+                        <input type="date" id="applyDate" name="applyDate" class="form-control" required>
+                    </div>
+
+                    <!-- Địa điểm -->
+                    <div class="mb-3">
+                        <label for="place" class="form-label">Địa điểm làm việc:</label>
+                        <input type="text" id="place" name="place" class="form-control"
+                            placeholder="Nhập địa điểm làm việc" required>
+                    </div>
+
+                    <!-- Hình thức làm việc -->
+                    <div class="mb-3">
+                        <label for="jobType" class="form-label">Hình thức làm việc:</label>
+                        <input type="text" id="jobType" name="jobType" class="form-control"
+                            placeholder="Nhập hình thức làm việc" required>
+                    </div>
+
+                    <!-- Thu nhập -->
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">Mức lương:</label>
+                        <input type="number" id="salary" name="salary" class="form-control" min="0" required>
+                    </div>
+
+                    <!-- Mô tả chi tiết -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Mô tả chi tiết:</label>
+                        <textarea id="description" name="description" class="form-control" rows="4"
+                            placeholder="Mô tả chi tiết về công việc" required></textarea>
+                    </div>
+
+                    <!-- Yêu cầu -->
+                    <div class="mb-3">
+                        <label for="request" class="form-label">Yêu cầu của ứng viên:</label>
+                        <textarea id="request" name="request" class="form-control" rows="3"
+                            placeholder="Mô tả chi tiết về yêu cầu" style="white-space: pre-line;"></textarea>
+                    </div>
+
+                    <!-- Quyền lợi -->
+                    <div class="mb-3">
+                        <label for="benefits" class="form-label">Quyền lợi:</label>
+                        <textarea id="benefits" name="benefits" class="form-control" rows="3"
+                            placeholder="Quyền lợi của ứng viên" style="white-space: pre-line;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button id="btnCreateJob" type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Update  Modal -->
+<div class="modal fade" id="updateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Chỉnh sửa thông tin tuyển dụng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateJobForm" method="POST">
+
+                    <!-- Tên công việc -->
+                    <div class="mb-3">
+                        <label for="titleU" class="form-label">Tên công việc:</label>
+                        <input type="text" id="titleU" name="title" class="form-control"
+                            placeholder="Nhập tên công việc" required>
+                    </div>
+
+                    <!-- Hạn nộp đơn -->
+                    <div class="mb-3">
+                        <label for="applyDateU" class="form-label">Hạn nộp đơn:</label>
+                        <input type="date" id="applyDateU" name="applyDate" class="form-control" required>
+                    </div>
+
+                    <!-- Địa điểm -->
+                    <div class="mb-3">
+                        <label for="placeU" class="form-label">Địa điểm làm việc:</label>
+                        <input type="text" id="placeU" name="place" class="form-control"
+                            placeholder="Nhập địa điểm làm việc" required>
+                    </div>
+
+                    <!-- Hình thức làm việc -->
+                    <div class="mb-3">
+                        <label for="jobTypeU" class="form-label">Hình thức làm việc:</label>
+                        <input type="text" id="jobTypeU" name="jobType" class="form-control"
+                            placeholder="Nhập hình thức làm việc" required>
+                    </div>
+
+                    <!-- Thu nhập -->
+                    <div class="mb-3">
+                        <label for="salaryU" class="form-label">Mức lương:</label>
+                        <input type="number" id="salaryU" name="salary" class="form-control" min="0" required>
+                    </div>
+
+                    <!-- Mô tả chi tiết -->
+                    <div class="mb-3">
+                        <label for="descriptionU" class="form-label">Mô tả chi tiết:</label>
+                        <textarea id="descriptionU" name="description" class="form-control" rows="4"
+                            placeholder="Mô tả chi tiết về công việc" required></textarea>
+                    </div>
+
+                    <!-- Yêu cầu -->
+                    <div class="mb-3">
+                        <label for="requestU" class="form-label">Yêu cầu của ứng viên:</label>
+                        <textarea id="requestU" name="request" class="form-control" rows="3"
+                            placeholder="Mô tả chi tiết về yêu cầu" style="white-space: pre-line;"></textarea>
+                    </div>
+
+                    <!-- Quyền lợi -->
+                    <div class="mb-3">
+                        <label for="benefitsU" class="form-label">Quyền lợi:</label>
+                        <textarea id="benefitsU" name="benefits" class="form-control" rows="3"
+                            placeholder="Quyền lợi của ứng viên" style="white-space: pre-line;"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button id="btnUpdateJob" type="button" class="btn btn-primary">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Delete  Modal -->
+<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Xóa thông tin tuyển dụng</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn xóa không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                <button id="btnDeleteJob" type="button" class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Delete form -->
+<form id="deleteJobForm" method="POST" action=""></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var jobId;
+        var deleteJobForm = document.getElementById('deleteJobForm');
+        var btnDeleteJob = document.getElementById('btnDeleteJob');
+        var updateJobForm = document.getElementById('updateJobForm');
+        var btnUpdateJob = document.getElementById('btnUpdateJob');
+        var createJobForm = document.getElementById('createJobForm');
+        var btnCreateJob = document.getElementById('btnCreateJob');
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            jobId = button.data('id');
+            console.log(jobId);
+        });
+
+        $('#updateModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            jobId = button.data('id');
+            var title = button.data('title');
+            var place = button.data('place');
+            var salary = parseInt(button.data('salary'), 10);
+            var jobType = button.data('jobtype');
+            var description = button.data('description');
+            var request = button.data('request');
+            var benefits = button.data('benefits');
+            var applyDate = button.data('applydate');
+
+            // Set the values in the update form
+            $('#titleU').val(title);
+            $('#placeU').val(place);
+            $('#salaryU').val(salary);
+            $('#jobTypeU').val(jobType);
+            $('#descriptionU').val(description);
+            $('#requestU').val(request);
+            $('#benefitsU').val(benefits);
+            $('#applyDateU').val(applyDate);
+        });
+
+        btnDeleteJob.onclick = function () {
+            deleteJobForm.action = '/admin/tuyen-dung/delete/' + jobId;
+            deleteJobForm.submit();
+        };
+
+        btnUpdateJob.onclick = function () {
+            updateJobForm.action = '/admin/tuyen-dung/update/' + jobId;
+            updateJobForm.submit();
+        };
+
+        btnCreateJob.onclick = function () {
+            createJobForm.action = '/admin/tuyen-dung/create';
+            createJobForm.submit();
+        };
+    });
+</script>

@@ -1,0 +1,61 @@
+<style>
+    .list-group-item:nth-child(even) {
+        background-color: #e8f4ec;
+    }
+</style>
+
+<center class="mb-5">
+    <h1><b>Danh sách người dùng đăng ký</b></h1>
+
+</center>
+
+<div class="row justify-content-center mb-5 ">
+    <div class="col-md-6 shadow-p bg-body-tertiary rounded-5 bg-light">
+        <form method="GET" action="nguoi-dung" class="container my-3">
+            <div class="row g-2">
+                <div class="col-12 col-md-9">
+                    <input type="text" name="search" value="{{search}}" placeholder="Tìm theo tên..."
+                        class="form-control rounded-pill" />
+                </div>
+                <div class="col-12 col-md-3">
+                    <button class="btn btn-primary rounded-pill w-100" type="submit">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-5">
+    <div class="col-md-11">
+        <ul class="list-group list-group-flush">
+            {{#each users}}
+            <li class="list-group-item">
+                <div
+                    class="align-items d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                    <div>
+                        {{this.name}}
+                    </div>
+                    <div>
+                        <i class="bi bi-telephone-fill"></i>
+                        {{this.phone}}
+                    </div>
+                    <div>
+                        <i class="bi bi-envelope-fill"></i>
+                        {{this.email}}
+                    </div>
+                    <div>
+                        {{!-- <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                            data-bs-target="#updateModal">
+                            Chỉnh sửa
+                        </button> --}}
+                        <button id="btn-delete-user" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal" data-id="{{this._id}}">
+                            Xóa
+                        </button>
+                    </div>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>

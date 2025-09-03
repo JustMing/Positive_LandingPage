@@ -34,6 +34,20 @@ class AdminController {
         res.redirect('/');
     }
 
+    //[GET] /admin/nguoi-dung
+    users(req, res, next) {
+      const search = req.query.search || '';
+
+        let filter = {};
+        if (search) {
+            filter.title = { $regex: search, $options: "i" };
+        }
+
+        User.find(filter).lean()
+            .then(users => res.render('admin/users', { users, layout: 'admin_layout.hbs' }))
+            .catch(err => next(err));
+    }
+
     //[GET] /admin/tuyen-dung
     jobs(req, res, next) {
         const search = req.query.search || '';
@@ -44,8 +58,37 @@ class AdminController {
         }
 
         Job.find(filter).lean()
-            .then(jobs => res.render('admin/jobs', {jobs, layout: 'admin_layout.hbs' }))
-                .catch(err => next(err));
+            .then(jobs => res.render('admin/jobs', { jobs, layout: 'admin_layout.hbs' }))
+            .catch(err => next(err));
+    }
+
+    //[GET] /admin/tuyen-dung/:slug
+    jobsDetail(req, res, next) {
+        Job.findOne({ slug: req.params.slug }).lean()
+            .then(job => res.render('admin/jobDetails', { job, layout: 'admin_layout.hbs' }))
+            .catch(err => next(err));
+    }
+
+    //[POST] /admin/tuyen-dung/delete/:id
+    delete(req, res, next) {
+        Job.deleteOne({_id: req.params.id})
+            .then(() => res.redirect('/admin/tuyen-dung'))
+            .catch(error => next(error));
+    }
+
+    //[POST] /admin/tuyen-dung/update/:id
+    update(req, res, next) {
+        Job.updateOne({_id: req.params.id}, req.body)
+            .then(() => res.redirect('/admin/tuyen-dung'))
+            .catch(error => next(error));
+    }
+
+    //[POST] /admin/tuyen-dung/create
+    create(req, res, next) {
+        const job = new Job(req.body);
+        job.save()
+            .then(() => res.redirect('/admin/tuyen-dung'))
+            .catch(error => next(error));
     }
 }
 
