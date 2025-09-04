@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/positive_dashboard');
+        await mongoose.connect(process.env.CONNECTION_STRING);
         console.log('connect successful');
     } catch(error) {
         console.log('connect failed');
