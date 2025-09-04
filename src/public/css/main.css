@@ -1,16 +1,13 @@
-// Typography Variables
 :root {
-  --font-primary: 'Josefin Sans', sans-serif;
-  --font-secondary: 'Lato', sans-serif;
+  --font-primary: "Josefin Sans", sans-serif;
+  --font-secondary: "Lato", sans-serif;
 }
 
-// Base Typography
 p {
   font-family: var(--font-secondary);
   font-weight: 400;
 }
 
-// Headings and Bold Elements
 h1, h2, h3, h4, h5, h6,
 .navbar-brand,
 .nav-link,
@@ -21,3 +18,5 @@ b {
   font-family: var(--font-primary);
   font-weight: 600;
 }
+
+/*# sourceMappingURL=main.css.map */

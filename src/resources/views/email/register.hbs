@@ -1,22 +1,72 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
     <title>Chào mừng</title>
-  </head>
-  <body>
-    <h2>Xin chào {{name}},</h2>
-    <p>Cảm ơn bạn đã đăng ký tài khoản tại <b>POSitive</b>.</p>
-    <p>Đây là tài khoản của bạn: 
-       <br>
-       Email: {{mail}} 
-       <br>
-       Mật khẩu: {{password}}
-    </p>
-    <div>
-        Truy cập vào link sau để sử dụng dịch vụ của chúng tôi: <a href="https://montserrat.id.vn/admin/login" target="_blank">Sử dụng dịch vụ</a>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600;700&family=Lato:wght@400&display=swap"
+        rel="stylesheet">
+    <style>
+        body, p {
+            font-family: 'Lato', sans-serif;
+            color: #212529; /* Force black text color */
+        }
+
+        .strong-text,
+        h1, h2, h3, h4, h5, h6,
+        strong {
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 600;
+            color: #212529; /* Force black text color */
+        }
+    </style>
+</head>
+
+<body class="py-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <!-- Header -->
+                    <div class="card-header bg-light text-center py-4 border-bottom">
+                        <h2 class="strong-text mb-0">Chào mừng bạn đến với POSitive</h2>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="p-10" style="background-color: #f4f4f4;">
+                        <div class="mb-4">
+                            Xin chào {{name}},
+                        </div>
+                        <p>Tài khoản của bạn đã được đăng ký thành công</p>
+                        <p>Chúng tôi luôn sẵn sàng đồng hành và hỗ trợ bạn trong suốt quá trình sử dụng dịch vụ</p>
+                        <p>Chúc bạn có những trải nghiệm thật tuyệt vời!</p>
+
+                        <div class="table-responsive mt-4">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <td width="30%"><strong class="strong-text">Tài khoản:</strong></td>
+                                    <td>{{mail}}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong class="strong-text">Password:</strong></td>
+                                    <td>{{password}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <p>Bắt đầu trải nghiệm bằng cách truy cập vào đây: <a href="https://montserrat.id.vn/admin/login">POSitive</a></p>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="text-center text-muted py-3 bg-light">
+                        <small>&copy; 2025 POSitive. All rights reserved.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    {{> footer}}
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>

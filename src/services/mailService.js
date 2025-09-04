@@ -6,7 +6,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
+    pass: process.env.MAIL_PASSWORD,
   },
 });
 
@@ -34,9 +34,9 @@ async function sendMail(to, subject, template, context) {
       context,
     });
 
-    console.log('✅ Mail sent:', info.messageId);
+    console.log('Mail sent:', info.messageId);
   } catch (error) {
-    console.error('❌ Error sending mail:', error);
+    console.error('Error sending mail:', error);
   }
 }
 

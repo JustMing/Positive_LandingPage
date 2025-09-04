@@ -1,7 +1,7 @@
 const User = require('../models/User');
 const Job = require('../models/Job');
 const jwt = require('jsonwebtoken');
-const mailService =     require('../../services/mailService');
+const mailService = require('../../services/mailService');
 require('dotenv').config();
 
 class AdminController {
@@ -37,7 +37,7 @@ class AdminController {
 
     //[GET] /admin/nguoi-dung
     users(req, res, next) {
-      const search = req.query.search || '';
+        const search = req.query.search || '';
 
         let filter = {};
         if (search) {
@@ -51,9 +51,40 @@ class AdminController {
 
     //[POST] /admin/nguoi-dung/delete/:id
     deleteUser(req, res, next) {
-        User.deleteOne({_id: req.params.id})
+        User.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('/admin/nguoi-dung'))
             .catch(error => next(error));
+    }
+
+    //[POST] /admin/nguoi-dung/approve/:id
+    approveUser(req, res, next) {
+        const { account, password } = req.body;
+
+        User.findOne({ _id: req.params.id })
+            .then(user => {
+                if (!user) {
+                    throw new Error('User not found');
+                }
+                
+                user.approved = true;
+                return user.save().then(() => {
+                    return mailService.sendMail(
+                        user.email,   
+                        'Tài khoản của bạn đã được phê duyệt',
+                        'register',
+                        {
+                            name: user.name,
+                            mail: account,
+                            password: password
+                        }
+                    );
+                });
+            })
+            .then(() => res.redirect('/admin/nguoi-dung'))
+            .catch(error => {
+                console.error('Error in approveUser:', error);
+                next(error);
+            });
     }
 
     //[GET] /admin/tuyen-dung
@@ -79,14 +110,14 @@ class AdminController {
 
     //[POST] /admin/tuyen-dung/delete/:id
     delete(req, res, next) {
-        Job.deleteOne({_id: req.params.id})
+        Job.deleteOne({ _id: req.params.id })
             .then(() => res.redirect('/admin/tuyen-dung'))
             .catch(error => next(error));
     }
 
     //[POST] /admin/tuyen-dung/update/:id
     update(req, res, next) {
-        Job.updateOne({_id: req.params.id}, req.body)
+        Job.updateOne({ _id: req.params.id }, req.body)
             .then(() => res.redirect('/admin/tuyen-dung'))
             .catch(error => next(error));
     }
