@@ -35,6 +35,7 @@ app.engine('hbs', hbs.engine({
         uFormatDate: (date, format) => {
             return moment(date).format(format);
         },
+        getEnv: (key) => process.env[key]
     }
 }));
 app.set('view engine', 'hbs');
