@@ -10,7 +10,54 @@ p {
   font-weight: 400;
 }
 
+// Headings and Bold Elements// Typography Variables
+:root {
+  --font-primary: 'Josefin Sans', sans-serif;
+  --font-secondary: 'Lato', sans-serif;
+}
+
+// Base Typography
+body,
+p,
+.text-normal,
+.form-control,
+.input-group,
+textarea,
+table,
+.dropdown-item:not(.active),
+.list-group-item:not(.active) {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+}
+
 // Headings and Bold Elements
+h1, h2, h3, h4, h5, h6,
+.navbar-brand,
+.nav-link,
+.btn,
+.strong-text,
+strong,
+b,
+.nav-item,
+.modal-title,
+.accordion-button,
+.card-title,
+.dropdown-item.active,
+.list-group-item.active {
+  font-family: var(--font-primary);
+  font-weight: 600;
+}
+
+// Special cases
+.btn-link {
+  font-family: var(--font-secondary);
+  font-weight: 400;
+}
+
+.form-label {
+  font-family: var(--font-primary);
+  font-weight: 600;
+}
 h1, h2, h3, h4, h5, h6,
 .navbar-brand,
 .nav-link,
