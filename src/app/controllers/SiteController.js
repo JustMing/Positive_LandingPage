@@ -26,6 +26,11 @@ class SiteController {
 
         res.render('home', {notify: 'Đăng ký thành công, chúng tôi sẽ liên hệ tới bạn trong thời gian sớm nhất', scrollTo: 'dang-ky'});
     }
+
+    //[GET] /bang-gia
+    pricing(req, res) {
+        res.render('pricing', { layout: 'subMain.hbs' });
+    }
 }
 
 module.exports = new SiteController;
